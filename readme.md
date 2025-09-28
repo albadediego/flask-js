@@ -50,3 +50,10 @@ flask --app main run -p 5002
 ```
 flask --app main --debug run
 ```
+
+# Base de datos
+- Crear una base de datos en sqlite y ejecutar el script de create.sql
+- El path de la base de datos hay que pasarlo en config
+```
+ORIGIN_DATA="data/nombre.sqlite"
+```
