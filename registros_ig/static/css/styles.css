@@ -38,3 +38,7 @@ ul.flashes{
     border: 1px solid #ccc; /*Borde para visualizar el div*/
     overflow-y: auto; /*Barra de desplazamiento vertica si es necesaria*/
 }
+
+.inactive{
+    display: none;
+}

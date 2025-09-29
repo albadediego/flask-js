@@ -28,18 +28,19 @@
                 <th>Cantidad</th>
             </tr>
         </table>
-        <article id="movements_detail">
+        <article id="movements_detail" class="inactive">
             <form id="movements_form" method="post">
                 <input type="date" name="date" id="date">
                 <input type="text" name="concept" id="concept" placeholder="Concepto de gatos/ingreso">
                 <input type="number" name="quantity" id="quantity" step="0.01" placeholder="Ingrese el monto en €">
-                <div class="grid">
-                    <button id="btn_cerrar">Cerrar</button>
-                    <button id="btn_guardar">Guardar</button>
-                    <button id="btn_borrar">Borrar</button>
-                    <button id="btn_modificar">Modificar</button>
-                </div>
+
             </form>
+            <div class="grid">
+                <button id="btn_cerrar">Cerrar</button>
+                <button id="btn_guardar">Guardar</button>
+                <button id="btn_borrar">Borrar</button>
+                <button id="btn_modificar">Modificar</button>
+            </div>
         </article>
     </section>
     <footer>
