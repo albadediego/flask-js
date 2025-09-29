@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/pico.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="/static/js/app.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            App Gestión de Movimientos
+        </div>
+    </header>
+    <section class="container">
+        <h2>Movimientos</h2>
+        <nav>
+            <ul>
+                <li><a role="button" id="btn_crear">Nuevo</a></li>
+            </ul>
+        </nav>
+        <table id="movements_table">
+            <tr>
+                <th>Fecha</th>
+                <th>Concepto</th>
+                <th>Cantidad</th>
+            </tr>
+        </table>
+        <article id="movements_detail">
+            <form id="movements_form" method="post">
+                <input type="date" name="date" id="date">
+                <input type="text" name="concept" id="concept" placeholder="Concepto de gatos/ingreso">
+                <input type="number" name="quantity" id="quantity" step="0.01" placeholder="Ingrese el monto en €">
+                <div class="grid">
+                    <button id="btn_cerrar">Cerrar</button>
+                    <button id="btn_guardar">Guardar</button>
+                    <button id="btn_borrar">Borrar</button>
+                    <button id="btn_modificar">Modificar</button>
+                </div>
+            </form>
+        </article>
+    </section>
+    <footer>
+        <div class="container">
+            &copy; 2025 Alba de Diego
+        </div>
+    </footer>
+</body>
+</html>
