@@ -4,28 +4,44 @@ let peticion_movimientos = new XMLHttpRequest() //creo un objeto de tipo XMLHttp
 function peticion_movimientos_handler(){
     if(this.readyState === 4){ //para verificar si es una peticion http
         if(this.status === 200){ //para saber si el estado de codigo es el correcto
-            alert(this.responseText); //formato string
-            const datos = JSON.parse(this.responseText) //convertir string a lista de json
-            alert(datos[0].concept)
+            //alert(this.responseText); //formato string
+            const movimientos = JSON.parse(this.responseText) //convertir string a lista de json
+            //datos[{obj1},{obj2}]
+            //{ data: [{obj1},{obj2}], status:"OK"}
+            const datos = movimientos.data;
 
-            let tabla = document.getElementById("movements_table");
+            if(datos.length === 0){
+                let tabla = document.getElementById("movements_table");
 
-            for(let i = 0;datos.length;i++){
                 const fila = document.createElement("tr");
 
-                const celda_date = document.createElement("td");
-                celda_date.innerHTML = datos[i].date
-                fila.appendChild(celda_date);
+                const celda_vacia = document.createElement("td");
+                celda_vacia.innerHTML = "No hay registros de movimientos"
+                fila.appendChild(celda_vacia);
                 
-                const celda_concept = document.createElement("td");
-                celda_concept.innerHTML = datos[i].concept
-                fila.appendChild(celda_concept);
-
-                const celda_quantity = document.createElement("td");
-                celda_quantity.innerHTML = datos[i].quantity
-                fila.appendChild(celda_quantity);
-
                 tabla.appendChild(fila);
+            }else{
+
+
+                let tabla = document.getElementById("movements_table");
+
+                for(let i = 0;datos.length;i++){
+                    const fila = document.createElement("tr");
+
+                    const celda_date = document.createElement("td");
+                    celda_date.innerHTML = datos[i].date
+                    fila.appendChild(celda_date);
+                    
+                    const celda_concept = document.createElement("td");
+                    celda_concept.innerHTML = datos[i].concept
+                    fila.appendChild(celda_concept);
+
+                    const celda_quantity = document.createElement("td");
+                    celda_quantity.innerHTML = datos[i].quantity
+                    fila.appendChild(celda_quantity);
+
+                    tabla.appendChild(fila);
+                }
             }
 
 

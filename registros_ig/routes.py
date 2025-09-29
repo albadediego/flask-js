@@ -2,6 +2,7 @@ from registros_ig import app
 from flask import jsonify, render_template
 from registros_ig.modelo import *
 from config import *
+import sqlite3
 
 '''
 @app.route("/")
@@ -20,8 +21,22 @@ def index():
 
 @app.route(f"/api/{VERSION}/all")
 def all_movements():
-    registros = select_all()
-    return jsonify(registros)
+    try:
+        registros = select_all()
+        return jsonify(
+        {
+            "data": registros,
+            "status":"OK"
+        }
+        ),200
+    except sqlite3.Error as ex:
+        return jsonify(
+        {
+            "data": str(ex),
+            "status":"Error"
+        }
+        ),400
+
 
 @app.route(f"/api/{VERSION}/detail/<int:id>")
 def select_by_id(id):
