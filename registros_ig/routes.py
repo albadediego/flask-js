@@ -41,8 +41,23 @@ def all_movements():
 
 @app.route(f"/api/{VERSION}/detail/<int:id>")
 def select_by_id(id):
-    registro = select_by_id(id)
-    return jsonify(registro)
+    
+    try:
+        registros = select_by_id(id)
+        return jsonify(
+        {
+            "data": registros,
+            "status":"OK"
+        }
+        ),HTTPStatus.OK
+    except sqlite3.Error as ex:
+        return jsonify(
+        {
+            "data": str(ex),
+            "status":"Error"
+        }
+        ),HTTPStatus.BAD_REQUEST
+
 
 @app.route(f"/api/{VERSION}/new", methods=["POST"])
 def create():
@@ -65,8 +80,37 @@ def create():
 
 @app.route(f"/api/{VERSION}/update/<int:id>")
 def update(id):
-    return "Aqui se actualiza el registro con id {id}"
+    datos = request.json #capturo el json recibido en la peticion
+    try:
+        update_by(id, [datos['date'],datos['concept'],datos['quantity']])
+        return jsonify(
+        {
+            "status":"OK"
+        }
+        ),HTTPStatus.OK
+    
+    except sqlite3.Error as ex:
+        return jsonify(
+        {
+            "data": str(ex),
+            "status":"Error"
+        }
+        ),HTTPStatus.BAD_REQUEST
 
 @app.route(f"/api/{VERSION}/delete/<int:id>")
 def remove(id):
-    return "Aqui se borra el registro con el id {id}"
+    try:
+        delete_by(id)
+        return jsonify(
+        {
+            "status":"OK"
+        }
+        ),HTTPStatus.OK
+    
+    except sqlite3.Error as ex:
+        return jsonify(
+        {
+            "data": str(ex),
+            "status":"Error"
+        }
+        ),HTTPStatus.BAD_REQUEST

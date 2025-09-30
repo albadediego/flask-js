@@ -121,6 +121,22 @@ function hideForm(){
     document.getElementById("movements_detail").style.display="none";
 }
 
+function capturarItemLista(){
+    //accedo a lista table
+    const tabla = document.getElementById("movements_table");
+    //accedo a la fila
+    const filas = tabla.getElementsByTagName("tr");
+    
+    for(let i=0;i<filas.length;i++){
+        const celdas = filas[i].getElementsByTagName("td");
+        
+        for (let x = 0; x < celdas.length; x++) {
+            console.log(`Fila: ${i},Celdas: ${celdas[x].innerText}`);
+        }
+    }
+    
+}
+
 window.onload = function(){
     let nuevo = document.getElementById("btn_crear");
     nuevo.addEventListener("click", viewForm)
