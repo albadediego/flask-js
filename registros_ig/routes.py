@@ -1,8 +1,9 @@
 from registros_ig import app
-from flask import jsonify, render_template
+from flask import jsonify, render_template, request
 from registros_ig.modelo import *
 from config import *
 import sqlite3
+from http import HTTPStatus
 
 '''
 @app.route("/")
@@ -28,14 +29,14 @@ def all_movements():
             "data": registros,
             "status":"OK"
         }
-        ),200
+        ),HTTPStatus.OK
     except sqlite3.Error as ex:
         return jsonify(
         {
             "data": str(ex),
             "status":"Error"
         }
-        ),400
+        ),HTTPStatus.BAD_REQUEST
 
 
 @app.route(f"/api/{VERSION}/detail/<int:id>")
@@ -43,9 +44,24 @@ def select_by_id(id):
     registro = select_by_id(id)
     return jsonify(registro)
 
-@app.route(f"/api/{VERSION}/new")
+@app.route(f"/api/{VERSION}/new", methods=["POST"])
 def create():
-    return "Aqui realizamos el registro nuevo"
+    datos = request.json #capturo el json recibido en la peticion
+    try:
+        insert([datos['date'],datos['concept'],datos['quantity']])
+        return jsonify(
+        {
+            "status":"OK"
+        }
+        ),HTTPStatus.CREATED
+    
+    except sqlite3.Error as ex:
+        return jsonify(
+        {
+            "data": str(ex),
+            "status":"Error"
+        }
+        ),HTTPStatus.BAD_REQUEST
 
 @app.route(f"/api/{VERSION}/update/<int:id>")
 def update(id):
